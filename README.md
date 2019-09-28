@@ -1,4 +1,11 @@
-Practice English by using "毎日の英文法"
-=======================================
+# English Practice App
 
-the data.json is from ../gcp-speech-to-text
+## Get started
+
+1. clone the repo
+2. install the dependencies
+3. run the development environment (`yarn <one of below>`)
+    - "start": launch the expo server
+    - "android": for Android
+    - "ios": "for iOS
+    - "web": "for Web
