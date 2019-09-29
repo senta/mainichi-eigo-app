@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { View, ViewStyle } from "react-native"
-import styled, { Styled } from "@emotion/native"
+import styledNative, { Styled } from "@emotion/native"
 import { useTheme } from "emotion-theming"
 import { Ionicons } from "@expo/vector-icons"
 
@@ -9,13 +9,16 @@ import { Section } from "../../types/entity"
 import { stringifyHLS } from "../../lib/color"
 import { StyledText } from "../../components/styled/Text"
 
+const styled = styledNative as Styled<Theme>
+
 type ItemProps = {
   section: Section
   isPlaying?: boolean
   onSelect: (item: Section) => void
 }
 
-const ItemContainer = (styled as Styled<Theme>).TouchableHighlight`
+const ItemContainer = styled.TouchableOpacity`
+  height: 64;
   padding-vertical: 16;
   padding-horizontal: 16;
   flex-direction: row;
@@ -27,11 +30,13 @@ const Icon: FC = () => {
   const theme = useTheme() as Theme
 
   return (
-    <Ionicons
-      name="ios-volume-high"
-      size={24}
-      color={stringifyHLS(...theme.hsl.foreground)}
-    />
+    <View style={{ height: 24 }}>
+      <Ionicons
+        name="ios-volume-high"
+        size={24}
+        color={stringifyHLS(...theme.hsl.foreground)}
+      />
+    </View>
   )
 }
 
@@ -41,7 +46,7 @@ export const ListItem: FC<ItemProps> = ({
   onSelect
 }) => {
   return (
-    <ItemContainer onPress={() => onSelect(section)} activeOpacity={0.8}>
+    <ItemContainer onPress={() => onSelect(section)}>
       <>
         <View style={{ flex: 1 }}>
           <StyledText

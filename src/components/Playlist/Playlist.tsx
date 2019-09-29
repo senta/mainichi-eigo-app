@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { FlatList, ListRenderItem } from "react-native"
-import styled, { Styled } from "@emotion/native"
+import styledNative, { Styled } from "@emotion/native"
 
 import { Theme } from "../../types/app"
 import { Section } from "../../types/entity"
@@ -8,20 +8,20 @@ import { stringifyHLS } from "../../lib/color"
 
 import { ListItem } from "./ListItem"
 
+const styled = styledNative as Styled<Theme>
+
 type Props = {
   list: Section[]
   playingItemId?: number
   onSelect: (item: Section) => void
 }
 
-const SectionList = (styled as Styled<Theme>)(FlatList as new () => FlatList<
-  Section
->)`
+const SectionList = styled(FlatList as new () => FlatList<Section>)`
   flex: 1;
   width: 100%;
 `
 
-const ItemSeparator = (styled as Styled<Theme>).View`
+const ItemSeparator = styled.View`
   border-bottom-color: ${({ theme }) => stringifyHLS(...theme.hsl.foreground)};
   border-bottom-width: 0.5;
 `

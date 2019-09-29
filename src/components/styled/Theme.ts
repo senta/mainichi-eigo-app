@@ -5,7 +5,7 @@ const common: Pick<Theme, "fontFamily" | "fontSize"> = {
   fontSize: {
     small: 11,
     medium: 15,
-    large: 21
+    large: 24
   },
   fontFamily: {
     normal: Platform.OS === "ios" ? "System" : "Roboto"
