@@ -2,8 +2,9 @@ import { Audio } from "expo-av"
 import { PlaybackSource, PlaybackStatus } from "expo-av/build/AV"
 
 type Event = {
-  type: "finished"
+  type: "finish"
 }
+
 type EventHandler = (event: Event) => void
 
 function reportError(err: Error) {
@@ -17,8 +18,23 @@ export const soundPlayer = () => {
   const listeners = new Set<EventHandler>()
   let playbackInstance: Audio.Sound | null = null
 
-  const handlePlaybackStatusUpdate = (status: PlaybackStatus) => {
-    status.isLoaded
+  const emit = (event: Event) => {
+    for (let listener of listeners) {
+      listener(event)
+    }
+  }
+
+  const handlePlaybackStatusUpdate = (status: PlaybackStatus): void => {
+    if (status.isLoaded === false) {
+      if (status.error) {
+        reportError(new Error(status.error))
+      }
+      return
+    }
+
+    if (status.didJustFinish) {
+      emit({ type: "finish" })
+    }
   }
 
   return Object.freeze({

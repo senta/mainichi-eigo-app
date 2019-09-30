@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect, useMemo, useCallback } from "react"
 
 import { Deck, Playback, Section } from "../types/entity"
 import { Player } from "../components/Player/Player"
-import { deckPlayer } from "../lib/DeckPlayer"
+import { deckPlayer, EventHandler } from "../lib/DeckPlayer"
 
 type Props = {
   deck: Deck
@@ -17,8 +17,10 @@ export const PlayerView: FC<Props> = ({ deck }) => {
   })
 
   const player = useMemo(() => deckPlayer(deck), [deck])
-  const handlePlayerStateChange = useCallback((playback: Playback) => {
-    setPlayback(playback)
+  const handlePlayerStateChange = useCallback<EventHandler>(event => {
+    if (event.type === "change") {
+      setPlayback(event.state)
+    }
   }, [])
 
   useEffect(() => {

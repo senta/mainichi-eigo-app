@@ -1,7 +1,12 @@
 import { Deck, Section, Sentence, Playback } from "../types/entity"
 import { soundPlayer } from "./SoundPlayer"
 
-type EventHandler = (state: Playback) => any
+export type Event = {
+  type: "change"
+  state: Playback
+}
+
+export type EventHandler = (event: Event) => any
 
 export type DeckPlayer = ReturnType<typeof deckPlayer>
 
@@ -15,7 +20,6 @@ export const deckPlayer = (deck: Deck) => {
   let playing: boolean = false
 
   const emit = (): void => {
-    // TODO: mov ethis conversion somwhere else
     const state: Playback = {
       playing,
       sectionIndex: currentSection,
@@ -24,11 +28,18 @@ export const deckPlayer = (deck: Deck) => {
     }
 
     for (let listener of listeners) {
-      listener(state)
+      listener({ type: "change", state })
     }
   }
 
-  return Object.freeze({
+  player.on(event => {
+    console.log(event)
+    if (event.type === "finish") {
+      publicInterface.nextSentence()
+    }
+  })
+
+  const publicInterface = Object.freeze({
     off(fn: EventHandler) {
       listeners.delete(fn)
     },
@@ -96,7 +107,7 @@ export const deckPlayer = (deck: Deck) => {
     },
 
     nextSentence(): void {
-      if (!currentSection || !currentSentence) {
+      if (currentSection == null || currentSentence == null) {
         return
       }
 
@@ -104,12 +115,12 @@ export const deckPlayer = (deck: Deck) => {
       if (currentSentence + 1 === len) {
         this.nextSection()
       } else {
-        this.setSentence(currentSection + 1)
+        this.setSentence(currentSentence + 1)
       }
     },
 
     prevSentence(): void {
-      if (!currentSection || !currentSentence) {
+      if (currentSection == null || currentSentence == null) {
         return
       }
 
@@ -120,4 +131,6 @@ export const deckPlayer = (deck: Deck) => {
       }
     }
   })
+
+  return publicInterface
 }
