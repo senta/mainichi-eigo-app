@@ -12,8 +12,8 @@ const styled = styledNative as Styled<Theme>
 
 type Props = {
   list: Section[]
-  playingItemId?: number
-  onSelect: (item: Section) => void
+  playingItemId?: number | null
+  onSelect: (id: Section["id"]) => void
 }
 
 const SectionList = styled(FlatList as new () => FlatList<Section>)`

@@ -1,13 +1,12 @@
-import React, { useState } from "react"
-import { Text } from "react-native"
+import React, { FC, useState } from "react"
+import { View } from "react-native"
 import nativeStyled, { Styled } from "@emotion/native"
 
 import { Theme } from "../../types/app"
-import { stringifyHLS } from "../../lib/color"
 
 import { Playlist } from "../Playlist/Playlist"
 import { PlaybackController } from "../PlaybackController/PlaybackController"
-import { Section } from "../../types/entity"
+import { Section, Playback } from "../../types/entity"
 
 const styled = nativeStyled as Styled<Theme>
 
@@ -21,77 +20,41 @@ const Spacer = styled.View`
   height: 130;
 `
 
-const section = (index: number): Section => ({
-  id: index,
-  title: `Section ${index} - the title can be a very very very long text. It could be like a small novel.`,
-  description: "this is description for 1",
-  step2: [
-    {
-      audio: "",
-      text: ["Hello world"]
-    },
-    {
-      audio: "",
-      text: ["Good morning"]
-    },
-    {
-      audio: "",
-      text: ["How are you?"]
-    },
-    {
-      audio: "",
-      text: ["How was your trip?"]
-    },
-    {
-      audio: "",
-      text: ["Do you enjoy rock and roll?"]
-    },
-    {
-      audio: "",
-      text: ["Do your parents live near you?"]
-    },
-    {
-      audio: "",
-      text: ["Are you hungly?"]
-    }
-  ],
-  step3: [
-    {
-      audio: "",
-      text: ["Hello world"]
-    },
-    {
-      audio: "",
-      text: ["Good morning"]
-    },
-    {
-      audio: "",
-      text: ["How are you?"]
-    },
-    {
-      audio: "",
-      text: ["How was your trip?"]
-    }
-  ]
-})
+type Props = {
+  sections: Section[]
+  playback: Playback
+  onChangeSection: (id: Section["id"]) => void
+  onChangeSentence: (index: number) => void
+  onTogglePlay: (playing: boolean) => void
+}
 
-const data: Section[] = new Array(30).fill(null).map((_, i) => section(i))
-
-export const Player = () => {
-  const [playing, setPlaying] = useState(data[0])
+export const Player: FC<Props> = ({
+  sections,
+  playback,
+  onChangeSection,
+  onChangeSentence,
+  onTogglePlay
+}) => {
+  const section = sections.find(el => el.id === playback.section)
+  const sentences = section ? section[playback.step] : []
 
   return (
     <Container>
       <Playlist
-        list={data}
-        playingItemId={playing.id}
-        onSelect={item => setPlaying(item)}
+        list={sections}
+        playingItemId={playback.section}
+        onSelect={onChangeSection}
       />
       <Spacer />
-      <PlaybackController
-        style={{ position: "absolute", bottom: 16, left: 8, right: 8 }}
-        section={playing}
-      />
+      <View style={{ position: "absolute", bottom: 16, left: 8, right: 8 }}>
+        <PlaybackController
+          sentences={sentences}
+          activeIndex={playback.sentence}
+          playing={playback.playing}
+          onChange={onChangeSentence}
+          onTogglePlay={onTogglePlay}
+        />
+      </View>
     </Container>
   )
 }

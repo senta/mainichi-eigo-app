@@ -1,20 +1,15 @@
-import React, { FC, useState } from "react"
+import React, { FC } from "react"
 import styledNative, { Styled } from "@emotion/native"
-import { ViewStyle, View, Text, TouchableOpacity } from "react-native"
-import { Entypo } from "@expo/vector-icons"
-import { useTheme } from "emotion-theming"
 
 import { Theme } from "../../types/app"
-import { Section } from "../../types/entity"
+import { Sentence } from "../../types/entity"
 import { stringifyHLS } from "../../lib/color"
 import { StyledText } from "../styled/Text"
 
-const styled = styledNative as Styled<Theme>
+import { SentenceControl } from "./PhraseControl"
+import { MediaPlayButton } from "./MediaPlayButton"
 
-type Props = {
-  section: Section
-  style?: ViewStyle
-}
+const styled = styledNative as Styled<Theme>
 
 const Container = styled.View`
   padding-vertical: 24;
@@ -30,52 +25,6 @@ const Container = styled.View`
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
 `
 
-type PlayStateProps = {
-  playing: boolean
-  onPress: () => void
-}
-
-const PlayControl: FC<PlayStateProps> = ({ playing, onPress }) => {
-  const theme = useTheme() as Theme
-  const icon = playing ? "controller-paus" : "controller-play"
-
-  return (
-    <TouchableOpacity onPress={onPress}>
-      <Entypo
-        name={icon}
-        size={32}
-        color={stringifyHLS(...theme.hsl.foreground)}
-      />
-    </TouchableOpacity>
-  )
-}
-
-const Dot = styled.View`
-  background-color: ${({ theme }) => stringifyHLS(...theme.hsl.foreground)};
-  border-radius: 4px;
-  width: 8;
-  height: 8;
-`
-
-const DotWrapper = styled.TouchableOpacity`
-  padding: 8px;
-`
-
-const PhraseControl: FC<PlayStateProps> = ({ playing, onPress }) => {
-  if (playing) {
-    return (
-      <TouchableOpacity>
-        <Text>🙊</Text>
-      </TouchableOpacity>
-    )
-  }
-  return (
-    <DotWrapper onPress={onPress}>
-      <Dot />
-    </DotWrapper>
-  )
-}
-
 const ButtonContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
@@ -83,29 +32,40 @@ const ButtonContainer = styled.View`
   margin-top: 8;
 `
 
-export const PlaybackController: FC<Props> = ({ section, style = null }) => {
-  const [playing, setPlaying] = useState(false)
-  const [active, setActive] = useState(0)
-  const series = section.step2
+type Props = {
+  sentences: Sentence[]
+  activeIndex: number | null
+  playing: boolean
+  onChange: (index: number) => void
+  onTogglePlay: (playing: boolean) => void
+}
 
-  const currentPhrase = series[active]
+export const PlaybackController: FC<Props> = ({
+  sentences,
+  activeIndex = null,
+  playing,
+  onChange,
+  onTogglePlay
+}) => {
+  const currentSentence = activeIndex != null ? sentences[activeIndex] : null
 
   return (
-    <Container style={style}>
+    <Container>
       <StyledText size="large" numberOfLines={1}>
-        {currentPhrase.text}
+        {currentSentence && currentSentence.text}
       </StyledText>
       <ButtonContainer>
-        {series.map((sentence, i) => (
-          <PhraseControl
+        {sentences.map((_, i) => (
+          <SentenceControl
             key={i}
-            playing={i === active}
-            onPress={() => {
-              setActive(i)
-            }}
+            playing={i === activeIndex}
+            onPress={() => onChange(i)}
           />
         ))}
-        <PlayControl playing={playing} onPress={() => setPlaying(!playing)} />
+        <MediaPlayButton
+          playing={playing}
+          onPress={() => onTogglePlay(!playing)}
+        />
       </ButtonContainer>
     </Container>
   )
