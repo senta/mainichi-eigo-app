@@ -14,7 +14,7 @@ const styled = styledNative as Styled<Theme>
 type ItemProps = {
   section: Section
   isPlaying?: boolean
-  onSelect: (id: Section["id"]) => void
+  onSelect: () => void
 }
 
 const ItemContainer = styled.TouchableOpacity`
@@ -46,7 +46,7 @@ export const ListItem: FC<ItemProps> = ({
   onSelect
 }) => {
   return (
-    <ItemContainer onPress={() => onSelect(section.id)}>
+    <ItemContainer onPress={onSelect}>
       <>
         <View style={{ flex: 1 }}>
           <StyledText

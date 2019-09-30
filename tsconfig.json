@@ -9,7 +9,8 @@
     "resolveJsonModule": true,
     "noImplicitAny": true,
     "strict": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "downlevelIteration": true
   },
   "include": ["./src/**/*"]
 }

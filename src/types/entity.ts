@@ -1,3 +1,5 @@
+import { PlaybackSource } from "expo-av/build/AV"
+
 export interface Deck {
   id: string
   title: string
@@ -14,13 +16,13 @@ export interface Section {
 }
 
 export interface Sentence {
-  audio: string // TODO: what is the actualy type of the audio files?
+  audio: PlaybackSource // TODO: what is the actualy type of the audio files?
   text: string[]
 }
 
 export interface Playback {
-  section: Section["id"] | null
+  sectionIndex: number | null
   step: "step2" | "step3"
-  sentence: number | null // index of current selected sentence
+  sentenceIndex: number | null // index of current selected sentence
   playing: boolean
 }

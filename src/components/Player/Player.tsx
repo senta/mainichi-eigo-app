@@ -35,21 +35,21 @@ export const Player: FC<Props> = ({
   onChangeSentence,
   onTogglePlay
 }) => {
-  const section = sections.find(el => el.id === playback.section)
+  const section = sections.find(el => el.id === playback.sectionIndex)
   const sentences = section ? section[playback.step] : []
 
   return (
     <Container>
       <Playlist
         list={sections}
-        playingItemId={playback.section}
+        playingItemIndex={playback.sectionIndex}
         onSelect={onChangeSection}
       />
       <Spacer />
       <View style={{ position: "absolute", bottom: 16, left: 8, right: 8 }}>
         <PlaybackController
           sentences={sentences}
-          activeIndex={playback.sentence}
+          activeIndex={playback.sentenceIndex}
           playing={playback.playing}
           onChange={onChangeSentence}
           onTogglePlay={onTogglePlay}

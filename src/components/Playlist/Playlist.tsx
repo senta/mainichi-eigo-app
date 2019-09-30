@@ -12,7 +12,7 @@ const styled = styledNative as Styled<Theme>
 
 type Props = {
   list: Section[]
-  playingItemId?: number | null
+  playingItemIndex?: number | null
   onSelect: (id: Section["id"]) => void
 }
 
@@ -26,12 +26,12 @@ const ItemSeparator = styled.View`
   border-bottom-width: 0.5;
 `
 
-export const Playlist: FC<Props> = ({ list, playingItemId, onSelect }) => {
-  const renderItem: ListRenderItem<Section> = ({ item }) => (
+export const Playlist: FC<Props> = ({ list, playingItemIndex, onSelect }) => {
+  const renderItem: ListRenderItem<Section> = ({ item, index }) => (
     <ListItem
       section={item}
-      onSelect={onSelect}
-      isPlaying={item.id === playingItemId}
+      onSelect={() => onSelect(index)}
+      isPlaying={index === playingItemIndex}
     />
   )
 

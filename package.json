@@ -10,6 +10,7 @@
     "@emotion/native": "^10.0.14",
     "emotion-theming": "^10.0.19",
     "expo": "^34.0.1",
+    "expo-av": "~6.0.0",
     "react": "16.8.3",
     "react-dom": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",

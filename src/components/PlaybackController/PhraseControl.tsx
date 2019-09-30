@@ -26,7 +26,7 @@ type Props = {
 export const SentenceControl: FC<Props> = ({ playing, onPress }) => {
   if (playing) {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPress}>
         <Text>🙊</Text>
       </TouchableOpacity>
     )

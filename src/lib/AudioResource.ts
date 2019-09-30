@@ -1,5 +1,6 @@
 import { Section, Deck } from "../types/entity"
 
+// TODO: Use asset loader https://docs.expo.io/versions/latest/sdk/asset/
 export const hasResources = (): boolean => true
 
 export const loadDeck = (id: Deck["id"]): Deck => ({
@@ -14,49 +15,49 @@ const _createSection = (index: number): Section => ({
   description: "this is description for 1",
   step2: [
     {
-      audio: "",
+      audio: require("./assets/1.mp3"),
       text: ["Hello world"]
     },
     {
-      audio: "",
+      audio: require("./assets/2.mp3"),
       text: ["Good morning"]
     },
     {
-      audio: "",
+      audio: require("./assets/3.mp3"),
       text: ["How are you?"]
     },
     {
-      audio: "",
+      audio: require("./assets/4.mp3"),
       text: ["How was your trip?"]
     },
     {
-      audio: "",
+      audio: require("./assets/5.mp3"),
       text: ["Do you enjoy rock and roll?"]
     },
     {
-      audio: "",
+      audio: require("./assets/6.mp3"),
       text: ["Do your parents live near you?"]
     },
     {
-      audio: "",
+      audio: require("./assets/7.mp3"),
       text: ["Are you hungly?"]
     }
   ],
   step3: [
     {
-      audio: "",
+      audio: require("./assets/1.mp3"),
       text: ["Hello world"]
     },
     {
-      audio: "",
+      audio: require("./assets/1.mp3"),
       text: ["Good morning"]
     },
     {
-      audio: "",
+      audio: require("./assets/1.mp3"),
       text: ["How are you?"]
     },
     {
-      audio: "",
+      audio: require("./assets/1.mp3"),
       text: ["How was your trip?"]
     }
   ]

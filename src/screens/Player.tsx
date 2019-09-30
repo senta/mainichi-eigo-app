@@ -2,35 +2,46 @@ import React, { FC, useState, useEffect, useMemo, useCallback } from "react"
 
 import { Deck, Playback, Section } from "../types/entity"
 import { Player } from "../components/Player/Player"
+import { deckPlayer } from "../lib/DeckPlayer"
 
 type Props = {
   deck: Deck
 }
 
 export const PlayerView: FC<Props> = ({ deck }) => {
-  const [section, setSection] = useState<Playback["section"]>(null)
-  const [sentence, setSentence] = useState<Playback["sentence"]>(null)
-  const [playing, setPlaying] = useState<Playback["playing"]>(false)
+  const [playback, setPlayback] = useState<Playback>({
+    playing: false,
+    sentenceIndex: null,
+    sectionIndex: null,
+    step: "step2"
+  })
 
-  const playback: Playback = useMemo(
-    () => ({
-      section,
-      step: "step2",
-      sentence,
-      playing
-    }),
-    [section, sentence, playing]
-  )
+  const player = useMemo(() => deckPlayer(deck), [deck])
+  const handlePlayerStateChange = useCallback((playback: Playback) => {
+    setPlayback(playback)
+  }, [])
 
-  const handleChangeSection = useCallback((id: Section["id"]) => {
-    setSection(id)
-    setSentence(0)
-    setPlaying(true)
+  useEffect(() => {
+    player.on(handlePlayerStateChange)
+    return () => {
+      player.off(handlePlayerStateChange)
+    }
+  }, [player])
+
+  const handleChangeSection = useCallback((index: number) => {
+    player.setSection(index)
   }, [])
 
   const handleChangeSentence = useCallback((index: number) => {
-    setSentence(index)
-    setPlaying(true)
+    player.setSentence(index)
+  }, [])
+
+  const handleTogglePlay = useCallback((playing: boolean) => {
+    if (playing) {
+      player.play()
+    } else {
+      player.stop()
+    }
   }, [])
 
   return (
@@ -39,7 +50,7 @@ export const PlayerView: FC<Props> = ({ deck }) => {
       playback={playback}
       onChangeSection={handleChangeSection}
       onChangeSentence={handleChangeSentence}
-      onTogglePlay={setPlaying}
+      onTogglePlay={handleTogglePlay}
     />
   )
 }
