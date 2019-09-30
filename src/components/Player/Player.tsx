@@ -35,7 +35,7 @@ export const Player: FC<Props> = ({
   onChangeSentence,
   onTogglePlay
 }) => {
-  const section = sections.find(el => el.id === playback.sectionIndex) || null
+  const section = sections[playback.sectionIndex || 0] || null
   const sentences = section ? section[playback.step] : []
 
   return (
