@@ -33,7 +33,6 @@ export const deckPlayer = (deck: Deck) => {
   }
 
   player.on(event => {
-    console.log(event)
     if (event.type === "finish") {
       publicInterface.nextSentence()
     }
@@ -56,6 +55,12 @@ export const deckPlayer = (deck: Deck) => {
 
     stop(): void {
       player.stop()
+      playing = false
+      emit()
+    },
+
+    pause(): void {
+      player.pause()
       playing = false
       emit()
     },

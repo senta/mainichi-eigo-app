@@ -42,7 +42,7 @@ export const PlayerView: FC<Props> = ({ deck }) => {
     if (playing) {
       player.play()
     } else {
-      player.stop()
+      player.pause()
     }
   }, [])
 
