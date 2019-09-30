@@ -33,6 +33,7 @@ const ButtonContainer = styled.View`
 `
 
 type Props = {
+  title: string | null
   sentences: Sentence[]
   activeIndex: number | null
   playing: boolean
@@ -41,6 +42,7 @@ type Props = {
 }
 
 export const PlaybackController: FC<Props> = ({
+  title,
   sentences,
   activeIndex = null,
   playing,
@@ -51,7 +53,10 @@ export const PlaybackController: FC<Props> = ({
 
   return (
     <Container>
-      <StyledText size="large" numberOfLines={1}>
+      <StyledText size="small" numberOfLines={1}>
+        {title}
+      </StyledText>
+      <StyledText size="large" numberOfLines={1} style={{ marginTop: 8 }}>
         {currentSentence && currentSentence.text}
       </StyledText>
       <ButtonContainer>

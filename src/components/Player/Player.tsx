@@ -17,7 +17,7 @@ const Container = styled.View`
 `
 
 const Spacer = styled.View`
-  height: 130;
+  height: 140;
 `
 
 type Props = {
@@ -35,7 +35,7 @@ export const Player: FC<Props> = ({
   onChangeSentence,
   onTogglePlay
 }) => {
-  const section = sections.find(el => el.id === playback.sectionIndex)
+  const section = sections.find(el => el.id === playback.sectionIndex) || null
   const sentences = section ? section[playback.step] : []
 
   return (
@@ -48,6 +48,7 @@ export const Player: FC<Props> = ({
       <Spacer />
       <View style={{ position: "absolute", bottom: 16, left: 8, right: 8 }}>
         <PlaybackController
+          title={section && section.title}
           sentences={sentences}
           activeIndex={playback.sentenceIndex}
           playing={playback.playing}
