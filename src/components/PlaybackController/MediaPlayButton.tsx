@@ -23,7 +23,7 @@ export const MediaPlayButton: FC<Props> = ({ playing, onPress }) => {
       <Entypo
         name={icon}
         size={32}
-        color={stringifyHLS(...theme.hsl.foreground)}
+        color={stringifyHLS(...theme.hsl.primary)}
       />
     </TouchableOpacity>
   )

@@ -17,10 +17,9 @@ const Container = styled.View`
   border-radius: 3px;
   background-color: ${({ theme }) =>
     stringifyHLS(
-      theme.hsl.background[0],
-      theme.hsl.background[1],
-      theme.hsl.background[2] + 10,
-      0.9
+      theme.hsl.secondary[0],
+      theme.hsl.secondary[1],
+      theme.hsl.secondary[2]
     )};
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
 `

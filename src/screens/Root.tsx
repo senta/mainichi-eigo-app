@@ -5,7 +5,7 @@ import { ThemeProvider } from "emotion-theming"
 import { Deck } from "../types/entity"
 import { hasResources, loadDeck } from "../lib/AudioResource"
 
-import { darkTheme, lightTheme } from "../components/styled/Theme"
+import { lightTheme, darkTheme } from "../components/styled/Theme"
 import { Background } from "../components/styled/Background"
 
 import { PlayerView } from "./Player"

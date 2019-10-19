@@ -12,7 +12,7 @@ const DotWrapper = styled.TouchableOpacity`
 `
 
 const Dot = styled.View`
-  background-color: ${({ theme }) => stringifyHLS(...theme.hsl.foreground)};
+  background-color: ${({ theme }) => stringifyHLS(...theme.hsl.primary)};
   border-radius: 4px;
   width: 8;
   height: 8;

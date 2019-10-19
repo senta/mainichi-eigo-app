@@ -34,7 +34,7 @@ const Icon: FC = () => {
       <Ionicons
         name="ios-volume-high"
         size={24}
-        color={stringifyHLS(...theme.hsl.foreground)}
+        color={stringifyHLS(...theme.hsl.primary)}
       />
     </View>
   )
@@ -55,6 +55,7 @@ export const ListItem: FC<ItemProps> = ({
             ellipsizeMode="tail"
             numberOfLines={1}
           >
+            {/* TODO: highlight when it's playing (TextNormal, TextPlaying) */}
             {section.title}
           </StyledText>
         </View>

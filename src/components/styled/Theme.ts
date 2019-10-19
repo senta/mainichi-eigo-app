@@ -15,17 +15,19 @@ const common: Pick<Theme, "fontFamily" | "fontSize"> = {
 export const darkTheme: Theme = {
   ...common,
   hsl: {
-    background: [231, 15, 18],
+    background: [231, 15, 16],
     foreground: [60, 10, 96],
-    primary: [210, 79, 46]
+    primary: [210, 79, 46],
+    secondary: [210, 79, 26]
   }
 }
 
 export const lightTheme: Theme = {
   ...common,
   hsl: {
-    background: [60, 10, 96],
-    foreground: [231, 15, 18],
-    primary: [210, 79, 46]
+    background: [0, 0, 100],
+    foreground: [0, 0, 1],
+    primary: [38, 87, 60],
+    secondary: [234, 83, 98]
   }
 }
