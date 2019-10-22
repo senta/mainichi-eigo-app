@@ -1,4 +1,4 @@
 import * as Expo from "expo"
-import { Root } from "./screens/Root"
+import { App } from "./screens/App"
 
-Expo.registerRootComponent(Root)
+Expo.registerRootComponent(App)

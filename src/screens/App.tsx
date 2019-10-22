@@ -11,8 +11,8 @@ import { Background } from "../components/styled/Background"
 import { PlayerView } from "./Player"
 import { Resouce } from "./Resource"
 
-export const Root: FC = () => {
-  const [theme, setTheme] = useState(darkTheme)
+export const App: FC = () => {
+  const [theme, setTheme] = useState(lightTheme)
 
   return (
     <ThemeProvider theme={theme}>
