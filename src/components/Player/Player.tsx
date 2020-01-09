@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react"
-import { View } from "react-native"
+import { View, Text } from "react-native"
 import nativeStyled, { Styled } from "@emotion/native"
 
 import { Theme } from "../../types/app"
@@ -14,10 +14,6 @@ const Container = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
-`
-
-const Spacer = styled.View`
-  height: 140;
 `
 
 type Props = {
@@ -40,13 +36,15 @@ export const Player: FC<Props> = ({
 
   return (
     <Container>
+      <View>
+        <Text>Here in the title</Text>
+      </View>
       <Playlist
         list={sections}
         playingItemIndex={playback.sectionIndex}
         onSelect={onChangeSection}
       />
-      <Spacer />
-      <View style={{ position: "absolute", bottom: 16, left: 8, right: 8 }}>
+      <View style={{ width: "100%" }}>
         <PlaybackController
           title={section && section.title}
           sentences={sentences}

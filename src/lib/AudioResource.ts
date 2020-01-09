@@ -1,3 +1,5 @@
+import * as FileSystem from "expo-file-system"
+
 import { Section, Deck } from "../types/entity"
 const data = require("./assets/data").default
 // TODO: Use asset loader https://docs.expo.io/versions/latest/sdk/asset/

@@ -18,8 +18,7 @@ type ItemProps = {
 }
 
 const ItemContainer = styled.TouchableOpacity`
-  height: 64;
-  padding-vertical: 16;
+  height: 48;
   padding-horizontal: 16;
   flex-direction: row;
   justify-content: space-between;

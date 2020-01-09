@@ -7,6 +7,7 @@ import { hasResources, loadDeck } from "../lib/AudioResource"
 
 import { lightTheme, darkTheme } from "../components/styled/Theme"
 import { Background } from "../components/styled/Background"
+import { StatusbarHeight } from "../components/styled/StatusbarHeight"
 
 import { PlayerView } from "./Player"
 import { Resouce } from "./Resource"
@@ -17,6 +18,7 @@ export const App: FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <Background>
+        <StatusbarHeight />
         <Router />
       </Background>
     </ThemeProvider>

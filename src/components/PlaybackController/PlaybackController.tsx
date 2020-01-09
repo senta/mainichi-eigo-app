@@ -12,7 +12,7 @@ import { MediaPlayButton } from "./MediaPlayButton"
 const styled = styledNative as Styled<Theme>
 
 const Container = styled.View`
-  padding-vertical: 24;
+  padding-vertical: 8;
   padding-horizontal: 16;
   border-radius: 3px;
   background-color: ${({ theme }) =>
@@ -55,7 +55,7 @@ export const PlaybackController: FC<Props> = ({
       <StyledText size="small" numberOfLines={1}>
         {title}
       </StyledText>
-      <StyledText size="large" numberOfLines={1} style={{ marginTop: 8 }}>
+      <StyledText size="medium" numberOfLines={1} style={{ marginTop: 8 }}>
         {currentSentence && currentSentence.text}
       </StyledText>
       <ButtonContainer>

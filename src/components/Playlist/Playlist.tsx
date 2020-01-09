@@ -22,7 +22,13 @@ const SectionList = styled(FlatList as new () => FlatList<Section>)`
 `
 
 const ItemSeparator = styled.View`
-  border-bottom-color: ${({ theme }) => stringifyHLS(...theme.hsl.foreground)};
+  border-bottom-color: ${({ theme }) =>
+    stringifyHLS(
+      theme.hsl.foreground[0],
+      theme.hsl.foreground[1],
+      theme.hsl.foreground[2],
+      0.3
+    )};
   border-bottom-width: 0.5;
 `
 
